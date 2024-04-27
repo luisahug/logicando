@@ -84,19 +84,22 @@ while running:
     rect_player2 = pygame.Rect(x_player2, y_player2, player2.width, player2.height)
     rect_ball = pygame.Rect(x, y, ball.radius, ball.radius)
     if rect_ball.colliderect(rect_player1):
+        points_player1 += 1
         vel_x = -vel_x
         vel_x +=0.5
         vel_y +=0.5
     if rect_ball.colliderect(rect_player2):
+        points_player2 += 1
         vel_x = -vel_x
         vel_x +=0.5
         vel_y +=0.5
     if x >= screen_width: 
-        points_player1 +=1
+        points_player1, points_player2 = 0
         x = screen_width/2
         y = screen_height/2
     elif x <= 0: 
-        points_player2 += 1
+        points_player1 = 0 
+        points_player2 = 0
         x = screen_width/2
         y = screen_height/2
 
