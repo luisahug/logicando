@@ -32,7 +32,6 @@ x = screen_width/2
 y = screen_height/2
 vel_x = 3
 vel_y = 3
-
 ball = Ball(screen, (255,255,255), 10)
 
 #informações dos players
@@ -51,12 +50,10 @@ player2 = Player(screen, (255,255,255), width_players, height_players)
 points_player1 = 0
 points_player2 = 0
 
+
 #informações placar de pontos
 font = pygame.font.Font(None, 36)
-text_score = font.render(" x " , True, (255,255,255))
-rect_score = text_score.get_rect()
-rect_score.center = (screen_width // 2, screen_height // 2)
-rect_score.y = 35
+
 
 while running:
     screen.fill((0,0,0))
@@ -78,26 +75,42 @@ while running:
     #iteração da bola
     x += vel_x
     y += vel_y
+    if y <= 0 or y >= screen_height: vel_y = -vel_y
     
-    """colisões bola X players
+    #colisões bola X players
+    tx_points_player1 = str(points_player1)
+    tx_points_player2 = str(points_player2)
     rect_player1 = pygame.Rect(x_player1, y_player2, player1.width, player1.height)
     rect_player2 = pygame.Rect(x_player2, y_player2, player2.width, player2.height)
     rect_ball = pygame.Rect(x, y, ball.radius, ball.radius)
-    if rect_ball.collidepoint(x_player1, y_player1):
-        points_player1 += 1
+    if rect_ball.colliderect(rect_player1):
         vel_x = -vel_x
-    if rect_ball.collidepoint(x_player2, y_player2):
+        vel_x +=0.5
+        vel_y +=0.5
+    if rect_ball.colliderect(rect_player2):
+        vel_x = -vel_x
+        vel_x +=0.5
+        vel_y +=0.5
+    if x >= screen_width: 
+        points_player1 +=1
+        x = screen_width/2
+        y = screen_height/2
+    elif x <= 0: 
         points_player2 += 1
-        vel_x = -vel_x
-    if x <= 0 or x >= screen_width: 
+        x = screen_width/2
+        y = screen_height/2
 
-    if y <= 0 or y >= screen_height: 
-"""
     #exibição dos elementos
+    text_score = font.render(tx_points_player1 + " x " + tx_points_player2, True, (255,255,255))
+    rect_score = text_score.get_rect()
+    rect_score.center = (screen_width // 2, screen_height // 2)
+    rect_score.y = 35
+
     ball.surface(x, y)
     player1.surface(x_player1, y_player1)
     player2.surface(x_player2, y_player2)
     screen.blit(text_score, rect_score)
+    
     #atualização da tela a cada loop
     pygame.display.flip()
     pygame.time.delay(10)
