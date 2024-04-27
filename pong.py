@@ -30,8 +30,8 @@ running = True
 #informações da bola
 x = screen_width/2
 y = screen_height/2
-vel_x = 5
-vel_y = 5
+vel_x = 3
+vel_y = 3
 
 ball = Ball(screen, (255,255,255), 10)
 
@@ -59,19 +59,15 @@ while running:
 
         if event.type == pygame.KEYDOWN:
             #player 1
-            if event.key == pygame.K_w:
-                if y_player1 >= 10: 
-                    y_player1 -=10
-            elif event.key == pygame.K_s:
-                if y_player1 < screen_height-height_players:
-                    y_player1 +=10
+            if event.key == pygame.K_w and y_player1 >= 20: 
+                y_player1 -=20
+            elif event.key == pygame.K_s and y_player1 < screen_height-height_players:
+                y_player1 +=20
             #player 2
-            if event.key == pygame.K_UP:
-                if y_player2 >= 10: 
-                    y_player2 -=10
-            elif event.key == pygame.K_DOWN:
-                if y_player2 < screen_height-height_players:
-                    y_player2 +=10
+            if event.key == pygame.K_UP and y_player2 >= 20: 
+                y_player2 -=20
+            elif event.key == pygame.K_DOWN and y_player2 < screen_height-height_players:
+                y_player2 +=20
 
         
     
