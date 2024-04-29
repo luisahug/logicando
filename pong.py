@@ -89,24 +89,20 @@ while running:
     if rect_ball.colliderect(rect_player2):
         points_player2 += 1
         vel_x = -vel_x
-
-    if x >= screen_width: 
-        points_player1 = 0
-        points_player2 = 0
-        x = screen_width/2
-        y = screen_height/2
-    elif x <= 0: 
+    #colisões bola X parede
+    if x >= screen_width or x <= 0: 
         points_player1 = 0 
         points_player2 = 0
         x = screen_width/2
         y = screen_height/2
 
-    #exibição dos elementos
+    #informações placar:
     text_score = font.render(tx_points_player1 + " x " + tx_points_player2, True, (255,255,255))
     rect_score = text_score.get_rect()
     rect_score.center = (screen_width // 2, screen_height // 2)
     rect_score.y = 35
-
+    
+    #exibição dos elementos
     ball.surface(x, y)
     player1.surface(x_player1, y_player1)
     player2.surface(x_player2, y_player2)
