@@ -80,21 +80,19 @@ while running:
     #colisões bola X players
     tx_points_player1 = str(points_player1)
     tx_points_player2 = str(points_player2)
-    rect_player1 = pygame.Rect(x_player1, y_player2, player1.width, player1.height)
+    rect_player1 = pygame.Rect(x_player1, y_player1, player1.width, player1.height)
     rect_player2 = pygame.Rect(x_player2, y_player2, player2.width, player2.height)
     rect_ball = pygame.Rect(x, y, ball.radius, ball.radius)
     if rect_ball.colliderect(rect_player1):
         points_player1 += 1
         vel_x = -vel_x
-        vel_x +=0.5
-        vel_y +=0.5
     if rect_ball.colliderect(rect_player2):
         points_player2 += 1
         vel_x = -vel_x
-        vel_x +=0.5
-        vel_y +=0.5
+
     if x >= screen_width: 
-        points_player1, points_player2 = 0
+        points_player1 = 0
+        points_player2 = 0
         x = screen_width/2
         y = screen_height/2
     elif x <= 0: 
