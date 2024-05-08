@@ -1,14 +1,16 @@
 import pygame
 
-class Ball:
+''''class Ball:
     def __init__(self, surf, color, radius):
         self.surf = surf
         self.color = color
         self.radius = radius
 
     def surface(self, x, y):
-        pygame.draw.circle(self.surf, self.color, (x,y), self.radius)
+        pygame.draw.circle(self.surf, self.color, (x,y), self.radius)'''''
     
+def surface_bola(surf, cor, x,y, raio):
+    pygame.draw.circle(surf, cor, (x,y), raio)
 
 class Player:
     def __init__(self, surf, color, width, height):
@@ -32,7 +34,8 @@ x = largura_tela/2
 y = altura_tela/2
 vel_x = 3
 vel_y = 3
-bola = Ball(tela, (255,255,255), 10)
+raio_bola = 10
+#bola = Ball(tela, (255,255,255), 10)
 
 #informações dos players
 largura_jogadores = 8
@@ -82,7 +85,8 @@ while running:
     txt_pontos_jogador2 = str(pontos_jogador2)
     rect_jogador1 = pygame.Rect(x_jogador1, y_jogador1, jogador1.width, jogador1.height)
     rect_jogador2 = pygame.Rect(x_jogador2, y_jogador2, jogador2.width, jogador2.height)
-    rect_bola = pygame.Rect(x, y, bola.radius, bola.radius)
+    rect_bola = pygame.Rect(x, y, raio_bola, raio_bola)
+
     if rect_bola.colliderect(rect_jogador1):
         pontos_jogador1 += 1
         vel_x = -vel_x
@@ -103,7 +107,8 @@ while running:
     rect_pontos.y = 35
     
     #exibição dos elementos
-    bola.surface(x, y)
+    #bola.surface(x, y)
+    surface_bola(tela, (255,255,255), x, y, raio_bola)
     jogador1.surface(x_jogador1, y_jogador1)
     jogador2.surface(x_jogador2, y_jogador2)
     tela.blit(txt_pontos, rect_pontos)
