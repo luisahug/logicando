@@ -1,18 +1,9 @@
 import pygame
-
-''''class Ball:
-    def __init__(self, surf, color, radius):
-        self.surf = surf
-        self.color = color
-        self.radius = radius
-
-    def surface(self, x, y):
-        pygame.draw.circle(self.surf, self.color, (x,y), self.radius)'''''
     
 def surface_bola(surf, cor, x,y, raio):
     pygame.draw.circle(surf, cor, (x,y), raio)
 
-class Player:
+'''class Player:
     def __init__(self, surf, color, width, height):
         self.surf = surf
         self.color = color
@@ -20,7 +11,10 @@ class Player:
         self.height = height
 
     def surface(self, x, y):
-        pygame.draw.rect(self.surf, self.color, (x, y, self.width, self.height))
+        pygame.draw.rect(self.surf, self.color, (x, y, self.width, self.height))'''
+
+def surface_jogador(surf, cor, x_jogador, y_jogador, largura_jogadores, altura_jogadores):
+    pygame.draw.rect(surf, cor, (x_jogador, y_jogador,largura_jogadores, altura_jogadores))
 
 pygame.init()
 largura_tela = 800
@@ -47,8 +41,8 @@ y_jogador1 = 2*altura_tela/5
 x_jogador2 = largura_tela-largura_jogadores
 y_jogador2 = 2*altura_tela/5
 
-jogador1 = Player(tela, (255,255,255), largura_jogadores, altura_jogadores)
-jogador2 = Player(tela, (255,255,255), largura_jogadores, altura_jogadores)
+#jogador1 = Player(tela, (255,255,255), largura_jogadores, altura_jogadores)
+#jogador2 = Player(tela, (255,255,255), largura_jogadores, altura_jogadores)
 
 pontos_jogador1 = 0
 pontos_jogador2 = 0
@@ -83,8 +77,8 @@ while running:
     #colisões bola X players
     txt_pontos_jogador1 = str(pontos_jogador1)
     txt_pontos_jogador2 = str(pontos_jogador2)
-    rect_jogador1 = pygame.Rect(x_jogador1, y_jogador1, jogador1.width, jogador1.height)
-    rect_jogador2 = pygame.Rect(x_jogador2, y_jogador2, jogador2.width, jogador2.height)
+    rect_jogador1 = pygame.Rect(x_jogador1, y_jogador1, largura_jogadores, altura_jogadores)
+    rect_jogador2 = pygame.Rect(x_jogador2, y_jogador2, largura_jogadores, altura_jogadores)
     rect_bola = pygame.Rect(x, y, raio_bola, raio_bola)
 
     if rect_bola.colliderect(rect_jogador1):
@@ -107,10 +101,11 @@ while running:
     rect_pontos.y = 35
     
     #exibição dos elementos
-    #bola.surface(x, y)
     surface_bola(tela, (255,255,255), x, y, raio_bola)
-    jogador1.surface(x_jogador1, y_jogador1)
-    jogador2.surface(x_jogador2, y_jogador2)
+    surface_jogador(tela, (255,0,0), x_jogador1, y_jogador1, largura_jogadores, altura_jogadores)
+    surface_jogador(tela, (0,0,255), x_jogador2, y_jogador2, largura_jogadores, altura_jogadores)
+    #jogador1.surface(x_jogador1, y_jogador1)
+    #jogador2.surface(x_jogador2, y_jogador2)
     tela.blit(txt_pontos, rect_pontos)
     
     #atualização da tela a cada loop
