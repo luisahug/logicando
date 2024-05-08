@@ -1,70 +1,60 @@
 import pygame
-    
-def surface_bola(surf, cor, x,y, raio):
+
+#definição das funções de exibição dos elementos móveis 
+def superficie_bola(surf, cor, x,y, raio):
     pygame.draw.circle(surf, cor, (x,y), raio)
-
-'''class Player:
-    def __init__(self, surf, color, width, height):
-        self.surf = surf
-        self.color = color
-        self.width = width
-        self.height = height
-
-    def surface(self, x, y):
-        pygame.draw.rect(self.surf, self.color, (x, y, self.width, self.height))'''
-
-def surface_jogador(surf, cor, x_jogador, y_jogador, largura_jogadores, altura_jogadores):
+def superficie_jogador(surf, cor, x_jogador, y_jogador, largura_jogadores, altura_jogadores):
     pygame.draw.rect(surf, cor, (x_jogador, y_jogador,largura_jogadores, altura_jogadores))
 
+#inicializar os recursos da biblioteca Pygame
 pygame.init()
+
+#definição das características fixas da tela
 largura_tela = 800
 altura_tela = 350
 tela = pygame.display.set_mode((largura_tela, altura_tela))
-pygame.display.set_caption("Ping")
-running = True
+pygame.display.set_caption("Ping") #nome da janela do jogo
+executando = True #variável de controle do loop principal
+fonte = pygame.font.Font(None, 36) #caract. gráficas do placar do jogo
 
 #informações da bola
+#coordenadas da bola
 x = largura_tela/2
 y = altura_tela/2
+#velocidade dos vetores da bola
 vel_x = 3
 vel_y = 3
 raio_bola = 10
-#bola = Ball(tela, (255,255,255), 10)
 
-#informações dos players
+#informações dos jogadores
 largura_jogadores = 8
 altura_jogadores = 80
-
+#coordenadas do jogador 1
 x_jogador1 = 0
-y_jogador1 = 2*altura_tela/5
-
+y_jogador1 = 2*altura_tela/5  #centraliza ele na lateral da tela
+#coordenadas do jogador 2
 x_jogador2 = largura_tela-largura_jogadores
-y_jogador2 = 2*altura_tela/5
-
-#jogador1 = Player(tela, (255,255,255), largura_jogadores, altura_jogadores)
-#jogador2 = Player(tela, (255,255,255), largura_jogadores, altura_jogadores)
-
+y_jogador2 = 2*altura_tela/5  #centraliza ele na lateral da tela
+#variáveis de controle da pontuação de cada jogador, inciam zeradas
 pontos_jogador1 = 0
 pontos_jogador2 = 0
 
-
-#informações placar de pontos
-fonte = pygame.font.Font(None, 36)
-
-
-while running:
-    tela.fill((0,0,0))
+#loop de execução do jogo (cada repetição é um frame)
+while executando:
+    #se o evento for de fechar a janela, executando se torna False e encerra o programa
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-    #movimento dos players
-    tecla = pygame.key.get_pressed()
-    #player 1
-    if tecla[pygame.K_w] and y_jogador1 >= 5: 
-        y_jogador1 -=5
-    elif tecla[pygame.K_s] and y_jogador1 < altura_tela-altura_jogadores:
+            executando = False
+
+    #eventos que definem o movimento dos jogadores
+    tecla = pygame.key.get_pressed() #salva qual tecla do teclado foi apertada
+    #jogador 1
+    #tecla W (cima)
+    if tecla[pygame.K_w] and y_jogador1 >= 5: #verifica se jogador está no limite da tela
+        y_jogador1 -=10                        #sendo 5 
+    elif tecla[pygame.K_s] and y_jogador1 < altura_tela-altura_jogadores: #verifica se jogador está no limite da tela
         y_jogador1 +=5
-    #player 2
+    #jogador 2
     if tecla[pygame.K_UP] and y_jogador2 >= 5: 
         y_jogador2 -=5
     elif tecla[pygame.K_DOWN] and y_jogador2 < altura_tela-altura_jogadores:
@@ -101,12 +91,12 @@ while running:
     rect_pontos.y = 35
     
     #exibição dos elementos
-    surface_bola(tela, (255,255,255), x, y, raio_bola)
-    surface_jogador(tela, (255,0,0), x_jogador1, y_jogador1, largura_jogadores, altura_jogadores)
-    surface_jogador(tela, (0,0,255), x_jogador2, y_jogador2, largura_jogadores, altura_jogadores)
-    #jogador1.surface(x_jogador1, y_jogador1)
-    #jogador2.surface(x_jogador2, y_jogador2)
-    tela.blit(txt_pontos, rect_pontos)
+    tela.fill((0,0,0)) #cor de fundo da tela
+    superficie_bola(tela, (255,255,255), x, y, raio_bola) #exibe a bola
+    #exibe cada jogador
+    superficie_jogador(tela, (255,0,0), x_jogador1, y_jogador1, largura_jogadores, altura_jogadores)
+    superficie_jogador(tela, (0,0,255), x_jogador2, y_jogador2, largura_jogadores, altura_jogadores)
+    tela.blit(txt_pontos, rect_pontos) #exibe o placar de pontos
     
     #atualização da tela a cada loop
     pygame.display.flip()
